@@ -18,9 +18,12 @@ compile_commands.json
 *.so
 *.dylib
 *.exe
-c2048
+/c2048
 
 # Editor/IDE
 .vscode/
 .idea/
 *.swp
+
+# Local planning notes
+backlog/

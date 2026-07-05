@@ -1,17 +1,38 @@
-#include "game.h"
+#include <stdlib.h>
+#include <memory.h>
+#include <c2048/game.h>
+#include <c2048/assert.h>
 
-#include "board.h"
-#include "render.h"
-
-void game_init(void)
+/* Set up game state before the main loop runs. */
+status_t game_init(game_state_t *g, grid_size_t grid_size)
 {
-    board_init();
-    /* TODO: reset score and any other game state. */
+    status_t status;
+
+    C2048_ASSERT(g != NULL);
+
+    memset(g, 0, sizeof(*g));
+
+    status = board_init(&g->board, grid_size);
+    if (IS_ERR(status)) {
+        return status;
+    }
+
+    board_spawn_tile(&g->board);
+    board_spawn_tile(&g->board);
+
+    return C2048_STATUS_OK;
 }
 
-int game_run(void)
+void game_deinit(game_state_t *g)
 {
-    render_draw();
-    /* TODO: implement the main game loop (input -> move -> spawn -> redraw). */
-    return 0;
+    C2048_ASSERT(g != NULL);
+
+    board_deinit(&g->board);
+    memset(g, 0, sizeof(*g));
+}
+
+/* Run the game. Returns a process exit code. */
+exit_code_t game_run(game_state_t *g)
+{
+    return (exit_code_t)0;
 }

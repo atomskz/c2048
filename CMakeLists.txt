@@ -20,7 +20,9 @@ add_executable(c2048
     src/board.c
     src/game.c
     src/render.c
-    src/utils.c)
+    src/utils.c
+    src/status.c
+    src/assert.c)
 
 target_include_directories(c2048 PRIVATE include)
 
